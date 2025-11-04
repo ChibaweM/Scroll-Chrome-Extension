@@ -2,12 +2,11 @@ chrome.action.onClicked.addListener((tab) => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     function: startAutoScroll,
-    args: ['InvestigationsList__CardListContainer-fOwSDh', 5000] // className and interval in milliseconds (20000ms = 20 seconds)
+    args: ['InvestigationsList__CardListContainer-fOwSDh', 5000]
   });
 });
 
 function startAutoScroll(className, interval) {
-  // Check if auto-scroll is already running
   if (window.autoScrollInterval) {
     clearInterval(window.autoScrollInterval);
     window.autoScrollInterval = null;
@@ -16,7 +15,6 @@ function startAutoScroll(className, interval) {
     return;
   }
   
-  // Function to scroll the div
   function scrollDiv() {
     const element = document.querySelector('.' + className);
     
@@ -31,10 +29,8 @@ function startAutoScroll(className, interval) {
     }
   }
   
-  // Scroll immediately first time
   scrollDiv();
-  
-  // Then scroll every 20 seconds
+
   window.autoScrollInterval = setInterval(scrollDiv, interval);
   console.log('Auto-scroll started - every', interval / 1000, 'seconds');
   alert('Auto-scroll started! Click extension again to stop.');
